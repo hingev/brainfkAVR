@@ -7,7 +7,7 @@ PROGRAMMER     = usbtiny
 clean:
 	rm -rf *~ out.bin out.hex
 
-all: compile run
+all: get_crts compile run
 
 compile:
 	gcc -L. $(SRC).c -o $(SRC)
