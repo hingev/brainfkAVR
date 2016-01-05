@@ -135,6 +135,8 @@ int main (int argc, char* argv) {
   fprintf (out, "%c%c", 0xff, 0xcf);
   // jump 0
   //fprintf (out, "%c%c%c%c", JMP_inst, 0x0, 0x0);
+
+  puts ("Done!..");
   
   fflush (out);
   fclose (out);

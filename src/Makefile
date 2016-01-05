@@ -7,7 +7,7 @@ PROGRAMMER     = usbtiny
 clean:
 	rm -rf *~ out.bin out.hex
 
-all: get_crts compile run
+all: get_crts compile run objcopy
 
 compile:
 	gcc -L. $(SRC).c -o $(SRC)
@@ -15,8 +15,10 @@ compile:
 run:
 	./$(SRC)
 
-disasm:
+objcopy:
 	avr-objcopy -I binary -O ihex out.bin out.hex
+
+disasm: run objcopy
 	avr-objdump -D --architecture=avr out.hex
 
 flash:
