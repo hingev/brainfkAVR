@@ -7,15 +7,38 @@ brainfuck compiler for AVRs
 
 ## How to compile ##
 
-Make sure you have `avr-libc` and `make`.
+Make sure you have `avr-libc` and `make`, `avrdude`.
+Have your **brainfuck** code in `src/src.bf` (terminal arguments not added yet).
 Then do:
 
     $ cd src
     $ make clean all
     
-It compiles `src.bf` into `out.bin`. Then change programmer settings in `src/Makefile` and do
+It compiles `src.bf` into `out.bin`, which `objcopy` turns into the `out.hex` file.
+Change programmer settings (`AVRDUDE_TARGET` and `PROGRAMMER`) in `src/Makefile` and do
 
     $ make flash
+
+If you'd like to see what the brainfuck commands were turned to in assembly, do
+
+	$ make bfdisasm
+
+And take a look inside the `bfdisasm` file. It will look something like this:
+
+	[
+		68:	0c 91       	ld	r16, X
+		6a:	00 30       	cpi	r16, 0x00	; 0
+		6c:	11 f4       	brne	.+4      	;  0x72
+		6e:	0c 94 5e 00 	jmp	0xbc	;  0xbc
+
+	-
+		72:	0c 91       	ld	r16, X
+		74:	0a 95       	dec	r16
+		76:	0c 93       	st	X, r16
+
+	etc.
+
+
 
 ## How this works ? ##
 
@@ -42,7 +65,7 @@ or
 
 In the **/avr** directory, there is the source code of [prologue](https://github.com/geohhot/brainfkAVR/blob/master/src/avr/crt0_for_bfc.S) and [output communication stuff](https://github.com/geohhot/brainfkAVR/blob/master/src/avr/crt_for_bfc.S).
 
-### What works ? ###
+### What ~~works~~ is implemented ? ###
 
 Not fully tested, but everything except `,` (input command)
 
@@ -53,6 +76,8 @@ All the usable **RAM** gets zeroed.
 ### The other part ###
 Sends the character, waits for **UART** to finish.
 
+### TODO ###
+Well, maybe implement input from **UART**, and some optimizations.
 
 In this version the optimization level is low (like, reallly low). But maybe in future versions (if any) it will be fixed.
 
