@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <assert.h>
 
-#define VERSION "0.07b"
+#define VERSION "0.1b"
 
 //TODO: add UART support
 //TODO: later, even add SPI, I2C, etc.
