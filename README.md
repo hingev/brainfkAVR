@@ -23,7 +23,13 @@ Well.. In **bf** you have a tape of bytes. In this case, the tape is the built i
 The program navigates over **RAM** using `>` and `<`.
 The `+` and `-` just do `INC` and `DEC`.
 
-For simplicity, all jumps and loads were done directly (mostly).
+-For simplicity, all jumps and loads were done directly (mostly).-
+Change in plans. The starting address for the 'tape' is loaded in the **X** register. After what, all calls are done indirectly. So for example `+` will just do
+
+	ld r16, X
+	inc r16
+	st x, r16
+
 In the **/avr** directory, there is the source code of [prologue](https://github.com/geohhot/brainfkAVR/blob/master/src/avr/crt0_for_bfc.S) and [output communication stuff](https://github.com/geohhot/brainfkAVR/blob/master/src/avr/crt_for_bfc.S).
 
 ### What works ? ###

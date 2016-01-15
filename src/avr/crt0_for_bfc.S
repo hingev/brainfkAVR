@@ -37,5 +37,7 @@ cleanup:
 	sts UBRR0H, r17
 
 	sbi DDRD, PD0
+	nop
+	nop
 ;; loop:
 ;; 	rjmp loop
