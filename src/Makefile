@@ -13,7 +13,7 @@ compile:
 	gcc -L. $(SRC).c -o $(SRC)
 
 run:
-	./$(SRC)
+	./$(SRC) -o out.bin src.bf
 
 objcopy:
 	avr-objcopy -I binary -O ihex out.bin out.hex

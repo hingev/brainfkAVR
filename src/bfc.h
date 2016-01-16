@@ -15,13 +15,13 @@
 // BRNE - branch if not equal
 // #define BRNE_inst 0xF
 // BRNE is only limited by +-64 instructions
-// will use absolute jumps
+// will use absolute jumps + brne/breq
 /*
  * cpi r16, 0
- * in r20, SREG
- * sbrs r20, 1
- * jmp BACK!
+ * brne .+4
+ * jmp DOWN
  */
+
 #define CPI_inst 0x00,  0x30 // compare imidiate r16, 0
 #define IN_SREG_inst 0x5f, 0xb7
 #define SBRS_inst    0x51, 0xFF // skip if Z bit in register (sreg) is set

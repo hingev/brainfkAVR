@@ -51,17 +51,23 @@ The `+` and `-` just do `INC` and `DEC`.
 Change in plans. 
 In the boot time, the starting address for the 'tape' is loaded in the **X** register. After what, all calls are done indirectly. So for example `+` will just do
 
-	ld r16, X
-	inc r16
-	st x, r16
+```assembly
+ld r16, X
+inc r16
+st x, r16
+```
 
 While the `>` and `<` just do a load with **post/pre increment/decrement**.
 
-	ld r2, X+
+```assembly
+ld r2, X+
+```
 
 or
-	
-	ld r2, -X
+
+```assembly
+ld r2, -X
+```
 
 In the **/avr** directory, there is the source code of [prologue](https://github.com/geohhot/brainfkAVR/blob/master/src/avr/crt0_for_bfc.S) and [output communication stuff](https://github.com/geohhot/brainfkAVR/blob/master/src/avr/crt_for_bfc.S).
 
@@ -80,4 +86,3 @@ Sends the character, waits for **UART** to finish.
 Well, maybe implement input from **UART**, and some optimizations.
 
 In this version the optimization level is low (like, reallly low). But maybe in future versions (if any) it will be fixed.
-

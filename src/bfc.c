@@ -16,6 +16,7 @@
 //      right now, it will be 300
 
 #include "bfc.h"
+#include "parse_opts.h"
 
 uint16_t address = MIN_ADDRESS; // SRAM address
 uint16_t inst_addr = 0; // instruction address
@@ -27,19 +28,30 @@ size_t sp = 0;
 //TODO: add atexit
 //TODO: write some definitions in header files -_-
 
-int main (int argc, char* argv) {
+int main (int argc, char* argv[]) {
   puts ("BFC version " VERSION);
-  // TODO: parse the options
 
-  // for simplicity: now tries src.bf as source
-  // outputs a .bin file
+  struct CmdParams opts;
+  opts.in_file = NULL;
+  opts.out_file = "out.bin";
+  parse_opts (argc, argv, &opts);
 
-  char infile[] = "src.bf";
+  if (opts.in_file == NULL) {
+    error ("no input file given.", EX_USAGE);
+  }
+  
+  printf ("In file: %s\n", opts.in_file);
+  printf ("Out file: %s\n", opts.out_file);
+  // exit (0);
+  
+  char *infile = opts.in_file;
   FILE *in = fopen (infile, "r");
-  assert (! (in == NULL));
+  // assert (! (in == NULL));
+  if (in == NULL)
+    error ("input file was not readable.", EX_DATAERR);
   printf ("Reading file: %s..\n", infile);
 
-  char outfile[] = "out.bin";
+  char *outfile = opts.out_file;
   FILE *out = fopen (outfile, "wb");
   FILE *crt;
 
